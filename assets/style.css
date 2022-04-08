@@ -1,0 +1,31 @@
+li {
+    display: flex;
+    justify-content: space-between;
+    border: solid black 2px;
+}
+
+ul {
+    list-style: none;
+}
+
+textarea {
+    width: 86%;
+    resize: none;
+    border: none;
+    outline: none;
+}
+
+span {
+    width: 7%;
+}
+
+button {
+    width: 7%;
+    border: none;
+    outline:none;
+}
+
+.emoji {
+    font-size: 40px;
+    /* line-height: 2; */
+}
