@@ -1,5 +1,4 @@
 var containerDiv = $(".container");
-// var textEl = $("textarea")
 
 // GIVEN I am using a daily planner to create a schedule
 // WHEN I open the planner
@@ -8,23 +7,15 @@ var containerDiv = $(".container");
 // THEN I am presented with timeblocks for standard business hours
 
 var scheduleArray = ["","","","","","","","","",];
-// var scheduleArray = []
 
 function renderSchedule(){
     containerDiv.append($("<h2>"))
     $("h2").text(moment().format("dddd, MMMM Do YYYY, h:mm a"))
     containerDiv.append($("<ul>"));
-    // var li = $("<li>").append($("<button>"))
     for(var i = 0; i < scheduleArray.length; i++) {
-        var schedItem = scheduleArray
-        var textEl = $("textarea");
-        // console.log(i);
         if (i >= 0 && i < 3) {
             $("ul").append($(`<li><span>${i+9}:00 AM</span><textarea id="text-${i}" data-time=${i}></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
-            // $("textarea").text(scheduleArray[i]);
             renderScheduleItems(i);
-            // scheduleArray.push({i :  ""})
-            // textEl.text(schedItem[i]);
         }else if(i === 3) {
             $("ul").append($(`<li><span>${i+9}:00 PM</span><textarea id="text-${i}" data-time=${i}></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
             renderScheduleItems(i);
@@ -33,8 +24,7 @@ function renderSchedule(){
             renderScheduleItems(i);
         }
     }
-    currentTime()
-    
+    currentTime() 
 }
 
 function renderScheduleItems(index) {
@@ -47,7 +37,6 @@ function renderScheduleItems(index) {
 
 function currentTime() {
     $("textarea").css("background-color", function(index) {
-        // console.log(index);
         if((index + 9) === parseInt(moment().format("H"))){
             return "#FC4F4F"
         } 
@@ -60,9 +49,6 @@ function currentTime() {
     });
 }
 
-// https://stackoverflow.com/questions/7892446/how-to-save-to-localstorage-from-textarea
-// https://blog.logrocket.com/localstorage-javascript-complete-guide/
-
 // WHEN I refresh the page
 // THEN the saved events persist
 
@@ -70,8 +56,6 @@ function init() {
     var storedSchedule = JSON.parse(localStorage.getItem(moment().format("L")));
     if (storedSchedule !== null) {
         scheduleArray = storedSchedule;
-        console.log(scheduleArray);
-        // renderSchedule();
     };
     renderSchedule();
     
@@ -85,46 +69,16 @@ init();
 
 $("button").on("click", function(event){
     event.preventDefault();
-    console.log(event);
 
     var saveBtn = event.target;
     var btnId = saveBtn.parentElement.id;
 
     for(var i = 0; i < 9; i++) {
         if (btnId === `btn-${i}`) {
-            console.log("working");
             var scheduleText = $("textarea")[i].value;
             var index = $("textarea")[i].dataset.time;
-            console.log("index: " + index + "  text: " + scheduleText);
             scheduleArray.splice(index, 1, scheduleText);
         }
         storeSchedule();
-        // renderSchedule();
     }
-    
 })
-
-
-// init()
-
-// $("button").on("click", function(event) {
-//     event.preventDefault();
-//     var saveBtn = event.target;
-//     var btnId = saveBtn.parentElement.id;
-//     for(var i = 0; i < 9; i++) {
-//         if (btnId === `btn-${i}`) {
-//             var scheduleText = $("textarea")[i].value;
-//             var index = $("textarea")[i].dataset.time
-//             scheduleArray.splice(index, 1, scheduleText);;
-//         }
-//     }
-//     storeSchedule();
-//     renderSchedule();
-
-// })
-
-// renderSchedule();
-// init()
-
-
-
