@@ -1,14 +1,5 @@
 var containerDiv = $(".container");
-// var olCreate = $("<ol>");
-// var olEl = $("ol");
-var liCreate = $("<li><button></button></li>");
-var liEl = $("li");
-var labelCreate = $("<label>");
-var labelEl =$("label");
-var textCreate = $("<textarea>");
-var textEL = $("textarea")
-var btnCreate = $("<button>")
-var btnEl = $("button")
+// var textEl = $("textarea")
 
 // GIVEN I am using a daily planner to create a schedule
 // WHEN I open the planner
@@ -16,131 +7,81 @@ var btnEl = $("button")
 // WHEN I scroll down
 // THEN I am presented with timeblocks for standard business hours
 
-var scheduleArray = []
+var scheduleArray = ["","","","","","","","","",];
+// var scheduleArray = []
 
 function renderSchedule(){
     containerDiv.append($("<h2>"))
     $("h2").text(moment().format("dddd, MMMM Do YYYY, h:mm a"))
     containerDiv.append($("<ul>"));
     // var li = $("<li>").append($("<button>"))
-    for(var i = 0; i < 9; i++) {
+    for(var i = 0; i < scheduleArray.length; i++) {
+        var schedItem = scheduleArray
+        var textEl = $("textarea");
         // console.log(i);
         if (i >= 0 && i < 3) {
-            $("ul").append($(`<li><span data-time="${i}">${i+9}:00 AM</span><textarea data-time=${i}></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+            $("ul").append($(`<li><span>${i+9}:00 AM</span><textarea id="text-${i}" data-time=${i}></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+            // $("textarea").text(scheduleArray[i]);
+            renderScheduleItems(i);
             // scheduleArray.push({i :  ""})
+            // textEl.text(schedItem[i]);
         }else if(i === 3) {
-            $("ul").append($(`<li><span data-time="${i}">${i+9}:00 PM</span><textarea data-time=${i}"></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+            $("ul").append($(`<li><span>${i+9}:00 PM</span><textarea id="text-${i}" data-time=${i}></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+            renderScheduleItems(i);
         }else if (i > 3 && i < 9) {
-            $("ul").append($(`<li><span data-time="${i}">${i-3}:00 PM</span><textarea data-time=${i}"></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+            $("ul").append($(`<li><span>${i-3}:00 PM</span><textarea id="text-${i}" data-time=${i}></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+            renderScheduleItems(i);
         }
     }
     currentTime()
+    
+}
+
+function renderScheduleItems(index) {
+    var currText = $(`#text-${index}`);
+    currText.text(scheduleArray[index]);
 }
 
 // WHEN I view the timeblocks for that day
 // THEN each timeblock is color coded to indicate whether it is in the past, present, or future
 
 function currentTime() {
-    $("textarea").css( "background-color", function( index ) {
+    $("textarea").css("background-color", function(index) {
         // console.log(index);
         if((index + 9) === parseInt(moment().format("H"))){
-            return "green"
+            return "#FC4F4F"
         } 
         if ((index + 9)> moment().format("H")){
-            return "blue"
+            return "#80ED99"
         }
         if ((index + 9)< moment().format("H")){
-            return "grey"
+            return "#E2DCD5"
         }   
     });
 }
-
-// WHEN I click into a timeblock
-// THEN I can enter an event
-// WHEN I click the save button for that timeblock
-// THEN the text for that event is saved in local storage
-// function init() {
-//     var storedItems = JSON.parse(localStorage.getItem(moment().format("L")))
-// }
-// todaysItems = []
-
-// function storeItems() {
-    
-//     for(var i = 9; i < 18; i++) {
-//         todaysItems += {"$("span").data().time" : "$("textarea").data().text"}
-//     }
-
-    
-//     localStorage.setItem(moment().format("L"), JSON.stringify());
-    
-// }
-
-// btnEl.on("click", function() {
-
-// })
 
 // https://stackoverflow.com/questions/7892446/how-to-save-to-localstorage-from-textarea
 // https://blog.logrocket.com/localstorage-javascript-complete-guide/
 
 // WHEN I refresh the page
 // THEN the saved events persist
-// var scheduleItems = {
-//     nineAm: "",
-//     tenAm: "",
-//     elevenAm: "",
-//     twelvePM: "",
-//     onePm: "",
-//     twoPm: "",
-//     threePm: "",
-//     fourPm: "",
-//     fivePm: "",
-// }
-
-
-
-
-// localStorage.setItem(moment().format("L"), JSON.stringify(scheduleItems))
-
-// var buttonEl = document.querySelectorAll("button");
-
-
-
-// buttonEl.addEventListener("click", function(event){
-//     console.log("test1")
-//     event.preventDefult();
-//     console.log(event.target.value)
-//     // tar = event.target
-//     // console.log($("textarea").value)
-//     // scheduleItems.nineAm = message.value;
-// })
-
-// renderSchedule();
-
-
-// $("button").on("click", function(event){
-//     event.preventDefault();
-//     console.log("test1");
-//     console.log(event);
-//     // scheduleItems["nineAm"] = message.value;
-//     for(var i=0; i < Object.keys(scheduleItems).length; i++) {
-//         var message = $("textarea")[i]
-//         // Object.keys(scheduleItems)[i] = message.value;
-//         Object.keys(scheduleItems).forEach(key)[i] = message.value;
-//         console.log(Object.keys(scheduleItems)[i])
-//     }
-// })
 
 function init() {
     var storedSchedule = JSON.parse(localStorage.getItem(moment().format("L")));
     if (storedSchedule !== null) {
         scheduleArray = storedSchedule;
-    }
+        console.log(scheduleArray);
+        // renderSchedule();
+    };
     renderSchedule();
+    
 }
 
 function storeSchedule() {
     localStorage.setItem(moment().format("L"), JSON.stringify(scheduleArray))
 }
+
+init();
 
 $("button").on("click", function(event){
     event.preventDefault();
@@ -148,22 +89,42 @@ $("button").on("click", function(event){
 
     var saveBtn = event.target;
     var btnId = saveBtn.parentElement.id;
-    console.log($("textarea")[0].dataset.time);
-    //  i need to change i to start at 0
+
     for(var i = 0; i < 9; i++) {
         if (btnId === `btn-${i}`) {
-            if ($("textarea")[i].value === "") {
-                return;
-            } else {
-                var scheduleText = scheduleArray.push($("textarea")[i].value);
-                var index = $("textarea")[i].dataset.time;
-                scheduleArray.splice(index, 1, scheduleText);
-            }
-            storeSchedule();
-            // renderSchedule():
+            console.log("working");
+            var scheduleText = $("textarea")[i].value;
+            var index = $("textarea")[i].dataset.time;
+            console.log("index: " + index + "  text: " + scheduleText);
+            scheduleArray.splice(index, 1, scheduleText);
         }
+        storeSchedule();
+        // renderSchedule();
     }
+    
 })
 
 
-init();
+// init()
+
+// $("button").on("click", function(event) {
+//     event.preventDefault();
+//     var saveBtn = event.target;
+//     var btnId = saveBtn.parentElement.id;
+//     for(var i = 0; i < 9; i++) {
+//         if (btnId === `btn-${i}`) {
+//             var scheduleText = $("textarea")[i].value;
+//             var index = $("textarea")[i].dataset.time
+//             scheduleArray.splice(index, 1, scheduleText);;
+//         }
+//     }
+//     storeSchedule();
+//     renderSchedule();
+
+// })
+
+// renderSchedule();
+// init()
+
+
+
