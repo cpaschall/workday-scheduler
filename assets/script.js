@@ -23,15 +23,15 @@ function renderSchedule(){
     $("h2").text(moment().format("dddd, MMMM Do YYYY, h:mm a"))
     containerDiv.append($("<ul>"));
     // var li = $("<li>").append($("<button>"))
-    for(var i = 0; i < 24; i++) {
+    for(var i = 0; i < 9; i++) {
         // console.log(i);
-        if (i > 8 && i < 12) {
-            $("ul").append($(`<li><span data-time="${i}">${i}:00 AM</span><textarea data-time=${i}></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
-            scheduleArray.push({i :  ""})
-        }else if(i === 12) {
-            $("ul").append($(`<li><span data-time="${i}">${i}:00 PM</span><textarea data-time=${i}"></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
-        }else if (i > 12 && i < 18) {
-            $("ul").append($(`<li><span data-time="${i}">${i-12}:00 PM</span><textarea data-time=${i}"></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+        if (i >= 0 && i < 3) {
+            $("ul").append($(`<li><span data-time="${i}">${i+9}:00 AM</span><textarea data-time=${i}></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+            // scheduleArray.push({i :  ""})
+        }else if(i === 3) {
+            $("ul").append($(`<li><span data-time="${i}">${i+9}:00 PM</span><textarea data-time=${i}"></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
+        }else if (i > 3 && i < 9) {
+            $("ul").append($(`<li><span data-time="${i}">${i-3}:00 PM</span><textarea data-time=${i}"></textarea><button id="btn-${i}"><span class="emoji">💾</span></button></li>`));
         }
     }
     currentTime()
@@ -84,17 +84,17 @@ function currentTime() {
 
 // WHEN I refresh the page
 // THEN the saved events persist
-var scheduleItems = {
-    nineAm: "",
-    tenAm: "",
-    elevenAm: "",
-    twelvePM: "",
-    onePm: "",
-    twoPm: "",
-    threePm: "",
-    fourPm: "",
-    fivePm: "",
-}
+// var scheduleItems = {
+//     nineAm: "",
+//     tenAm: "",
+//     elevenAm: "",
+//     twelvePM: "",
+//     onePm: "",
+//     twoPm: "",
+//     threePm: "",
+//     fourPm: "",
+//     fivePm: "",
+// }
 
 
 
@@ -114,7 +114,7 @@ var scheduleItems = {
 //     // scheduleItems.nineAm = message.value;
 // })
 
-renderSchedule();
+// renderSchedule();
 
 
 // $("button").on("click", function(event){
@@ -130,6 +130,18 @@ renderSchedule();
 //     }
 // })
 
+function init() {
+    var storedSchedule = JSON.parse(localStorage.getItem(moment().format("L")));
+    if (storedSchedule !== null) {
+        scheduleArray = storedSchedule;
+    }
+    renderSchedule();
+}
+
+function storeSchedule() {
+    localStorage.setItem(moment().format("L"), JSON.stringify(scheduleArray))
+}
+
 $("button").on("click", function(event){
     event.preventDefault();
     console.log(event);
@@ -137,14 +149,21 @@ $("button").on("click", function(event){
     var saveBtn = event.target;
     var btnId = saveBtn.parentElement.id;
     console.log($("textarea")[0].dataset.time);
-    
-    for(var i = 9; i < 18; i++) {
-
+    //  i need to change i to start at 0
+    for(var i = 0; i < 9; i++) {
         if (btnId === `btn-${i}`) {
-            console.log($("textarea")[i-9].value);
-            var index = $("textarea")[i-9].dataset.time;
-            scheduleArray.splice(index, 1)
-
+            if ($("textarea")[i].value === "") {
+                return;
+            } else {
+                var scheduleText = scheduleArray.push($("textarea")[i].value);
+                var index = $("textarea")[i].dataset.time;
+                scheduleArray.splice(index, 1, scheduleText);
+            }
+            storeSchedule();
+            // renderSchedule():
         }
     }
 })
+
+
+init();
