@@ -1,44 +1,12 @@
-# workday-scheduler
+# Workday-Scheduler
 
+## Project Goal
 
-# NOTES
+To create a simple schedule that has a "To-Do" element for each business hour (9am-5pm). A user can enter and save a To-Do item under each hour and the data in that item will not be lost when the page is refreshed.  The current Date and Time will show at the top of the page and each set of To-Do items will be associated with the date they are created on.
 
-## Timeblock Create
-
-### Create
-1. div/section
-
-### Attributes/Text
-1. id ??? hour-9
-2. text 9AM
-3. add some class?
-
-### Append
-1. div/section should be appended to the container
-2. one of the children should be a button
-3. one of the children should be a text-field
-4. (Optional) one of the children can be a label
-
-Week 4 -> 26
-Week 5 -> 3, 11, 25 
-
-
-## Your Task
-
-Create a simple calendar application that allows a user to save events for each hour of the day by modifying starter code. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
-
-You'll need to use the [Moment.js](https://momentjs.com/) library to work with date and time. Be sure to read the documentation carefully and concentrate on using Moment.js in the browser.
-
-## User Story
-
-```md
-AS AN employee with a busy schedule
-I WANT to add important events to a daily planner
-SO THAT I can manage my time effectively
-```
 ## Acceptance Criteria
 
-```md
+```
 GIVEN I am using a daily planner to create a schedule
 WHEN I open the planner
 THEN the current day is displayed at the top of the calendar
@@ -54,5 +22,7 @@ WHEN I refresh the page
 THEN the saved events persist
 ```
 
-## Prework
+## Final Product
+[Workday Scheduler](https://cpaschall.github.io/workday-scheduler)
 
+![Work Scheduler in Action](./assets/images/scheduler.gif)
