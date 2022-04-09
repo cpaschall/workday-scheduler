@@ -1,7 +1,25 @@
+:root {
+    --li-bg-on: linear-gradient(90deg, #28FFBF, #F5FDB0);
+    --li-bg-before: linear-gradient(90deg, #1597BB, #8FD6E1);
+    --li-bg-after: linear-gradient(90deg, #85F4FF, #B8FFF9);
+}
+
+body {
+    background-image: url("./desk.jpg");
+    background-size: cover;
+}
+
+h2 {
+    text-align: center;
+}
+
 li {
     display: flex;
     justify-content: space-between;
+    width: 700px;
+    margin: 5px;
     border: solid black 2px;
+    border-radius: 35px;
 }
 
 ul {
@@ -13,19 +31,62 @@ textarea {
     resize: none;
     border: none;
     outline: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
 }
 
 span {
-    width: 7%;
+    width: 15%;
+    text-align: center;
+    
+}
+
+p {
+    margin-top: 17px;
+    color: black;
+    font-size: 1.25rem;
+    text-shadow: 1px 1px aliceblue;
 }
 
 button {
-    width: 7%;
+    width: 10%;
     border: none;
     outline:none;
+    border-radius: 0 35px 35px 0
+}
+
+.jumbotron {
+    text-align: center;
+    background: #54BAB9;
+}
+
+.display-3 {
+    color: #FBF8F1;
+}
+
+.lead {
+    color: #F7ECDE;
+    font-size: 1.25rem;
+    text-shadow: none;
+}
+
+.container {
+    right: 25%;
+}
+
+.each-hour {
+    border-radius: 35px 0 0 35px;
 }
 
 .emoji {
     font-size: 40px;
-    /* line-height: 2; */
+}
+
+#currentDay {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bolder;
+    text-shadow: 2px 2px black;
 }
