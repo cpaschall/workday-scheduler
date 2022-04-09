@@ -25,4 +25,4 @@ THEN the saved events persist
 ## Final Product
 [Workday Scheduler](https://cpaschall.github.io/workday-scheduler)
 
-![Work Scheduler in Action](./assets/images/scheduler.gif)
+![Work Scheduler in Action](./assets/Images/scheduler.gif)

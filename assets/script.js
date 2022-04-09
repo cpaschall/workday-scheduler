@@ -29,6 +29,7 @@ function renderSchedule(){
     currentTime() 
 }
 
+// renders text of each schedule item and refreshes when called to update the list from scheduleArray
 function renderScheduleItems(index) {
     var currText = $(`#text-${index}`);
     currText.text(scheduleArray[index]);
@@ -49,6 +50,7 @@ function currentTime() {
             return "var(--li-bg-before)"
         }   
     });
+
     $(".each-hour").css("background", function(index) {
         if((index + 9) === parseInt(moment().format("H"))){
             return "#28FFBF"
